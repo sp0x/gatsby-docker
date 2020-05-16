@@ -14,7 +14,7 @@ env:
 
 after_success:
 # Setup
-  - export REPO=gatsbyjs/gatsby
+  - export REPO=sp0x/gatsby
   - export MAIN_TAG=`if [ "$TRAVIS_BRANCH" = "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - export ONBUILD_TAG=`if [ "$TRAVIS_BRANCH" = "master" ]; then echo "onbuild"; else echo "$MAIN_TAG-onbuild" ; fi`
   - echo "Main tag - $MAIN_TAG | Onbuild - $ONBUILD_TAG | Commit (shorten) - $COMMIT | Branch - $TRAVIS_BRANCH"
@@ -23,7 +23,7 @@ after_success:
 
 # Build and deploy
   - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - cat Dockerfile.onbuild | sed "s#gatsbyjs/gatsby:latest#$REPO:$COMMIT#g" | docker build -t $REPO:$COMMIT-onbuild -
+  - cat Dockerfile.onbuild | sed "s#sp0x/gatsby:latest#$REPO:$COMMIT#g" | docker build -t $REPO:$COMMIT-onbuild -
   - docker tag $REPO:$COMMIT $REPO:$MAIN_TAG
   - docker tag $REPO:$COMMIT-onbuild $REPO:$ONBUILD_TAG
 
