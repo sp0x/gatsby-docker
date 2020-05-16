@@ -19,7 +19,7 @@ after_success:
   - export ONBUILD_TAG=`if [ "$TRAVIS_BRANCH" = "master" ]; then echo "onbuild"; else echo "$MAIN_TAG-onbuild" ; fi`
   - echo "Main tag - $MAIN_TAG | Onbuild - $ONBUILD_TAG | Commit (shorten) - $COMMIT | Branch - $TRAVIS_BRANCH"
   - 
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # Build and deploy
   - docker build -f Dockerfile -t $REPO:$COMMIT .
